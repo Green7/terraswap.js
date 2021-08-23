@@ -13,8 +13,13 @@ Terraswap.js is simple library for working with TeraSwap automated market-maker 
 Grab the latest version off [NPM](https://www.npmjs.com/package/terraswap.js):
 
 ```sh
-yarn add terra.js
+yarn add terraswap.js
 ```
+or 
+```sh
+npm i terraswap.js
+```
+
 
 ## Usage
 
