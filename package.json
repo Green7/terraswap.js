@@ -1,6 +1,6 @@
 {
   "name": "terraswap.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Terraswap.js is simple library for working with TeraSwap automated market-maker (AMM) protocol on the Terra blockchain.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,11 +9,11 @@
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" ",
     "lint": "tslint -p tsconfig.json",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
-    "version" : "npm run format && git add -A src",
-    "postversion" : "git push && git push --tags"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -44,5 +44,7 @@
     "@terra-money/terra.js": "^1.8.10",
     "axios": "^0.21.1"
   },
-  "files": ["dist/**/*"]
+  "files": [
+    "dist/**/*"
+  ]
 }
