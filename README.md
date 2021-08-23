@@ -56,7 +56,7 @@ await terraSwap.getPairsInfo();
 const res = await terraSwap.querySimulationBySymbol(LUNA, UST, '1000000');
 
 // Query reverse simulation: how much UST do you have to pay for 1 luna ?
-const res = await terraSwap.queryReverseSimulationBySymbol(LUNA, UST, '1000000');
+const rres = await terraSwap.queryReverseSimulationBySymbol(LUNA, UST, '1000000');
 
 
 ```
@@ -72,7 +72,7 @@ const tx = await terraSwap.createAndSignSwapBySymbolMsg(UST, LUNA, '1000000', {
 });
 
 // Broadcast it
-const res = await lcdClient.tx.broadcast(tx)
+const txRes = await lcdClient.tx.broadcast(tx)
 
 ```
 
