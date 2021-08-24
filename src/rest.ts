@@ -164,10 +164,12 @@ export async function getPairsInfo(networkType: NetworkType): Promise<PairInfo[]
       ) {
         if (
           !(
-            tokenInfo1?.contract_addr === 'terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp' || // bLUNA mainnet
-            tokenInfo1?.contract_addr === 'terra1u0t35drzyy0mujj8rkdyzhe264uls4ug3wdp3x' || // bLUNA testnet
-            tokenInfo1?.contract_addr === 'terra14z56l0fp2lsf86zy3hty2z47ezkhnthtr9yq76' || // ANC mainnet
-            tokenInfo1?.contract_addr === 'terra1747mad58h0w4y589y3sk84r5efqdev9q4r02pc'    // ANC testnet
+            (
+              tokenInfo1?.contract_addr === 'terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp' || // bLUNA mainnet
+              tokenInfo1?.contract_addr === 'terra1u0t35drzyy0mujj8rkdyzhe264uls4ug3wdp3x' || // bLUNA testnet
+              tokenInfo1?.contract_addr === 'terra14z56l0fp2lsf86zy3hty2z47ezkhnthtr9yq76' || // ANC mainnet
+              tokenInfo1?.contract_addr === 'terra1747mad58h0w4y589y3sk84r5efqdev9q4r02pc'
+            ) // ANC testnet
           )
         ) {
           return;
