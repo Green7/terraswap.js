@@ -1,4 +1,4 @@
-import { getPairsInfo, NetworkName, PairInfo, TokenInfo } from './rest';
+import { getPairsInfo, NetworkType, PairInfo, TokenInfo } from './rest';
 
 export interface IPairFinder {
   // finds PairInfo for swap between symbol1 and symbol2 or throw
@@ -7,15 +7,15 @@ export interface IPairFinder {
 
 export class PairFinder implements IPairFinder {
   pairs: PairInfo[];
-  private readonly networkName: NetworkName;
+  private readonly networkType: NetworkType;
 
-  constructor(networkName: NetworkName) {
-    this.networkName = networkName;
+  constructor(networkType: NetworkType) {
+    this.networkType = networkType;
     this.pairs = [];
   }
 
   async getPairsInfo() {
-    this.pairs = await getPairsInfo(this.networkName);
+    this.pairs = await getPairsInfo(this.networkType);
   }
 
   getPair(symbol1: string, symbol2: string): PairInfo {

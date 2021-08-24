@@ -1,4 +1,4 @@
-import { PairFinder } from '../pairFinder';
+import { PairFinder } from '../pairfinder';
 import {
   fabricateQuerySimulationBySymbol,
   fabricateReverseQuerySimulationBySymbol,
@@ -10,14 +10,10 @@ import { Coin, Coins, MsgExecuteContract } from '@terra-money/terra.js';
 import { createAssetForNative } from '../types';
 
 let testNetworkPairsProvider: PairFinder;
-let mainNetworkPairsProvider: PairFinder;
 
 beforeAll(async () => {
   testNetworkPairsProvider = new PairFinder('testnet');
   await testNetworkPairsProvider.getPairsInfo();
-
-  mainNetworkPairsProvider = new PairFinder('mainnet');
-  await mainNetworkPairsProvider.getPairsInfo();
 });
 
 test('PairsProvider fabricateQuerySimulationBySymbol LUNA to UST', async () => {
@@ -39,23 +35,23 @@ test('PairsProvider fabricateQuerySimulationBySymbol UST to LUNA', async () => {
 });
 
 test('PairsProvider fabricateQuerySimulationBySymbol LUNA to bLUNA', async () => {
-  const res = fabricateQuerySimulationBySymbol(mainNetworkPairsProvider, LUNA, bLUNA, '10000');
+  const res = fabricateQuerySimulationBySymbol(testNetworkPairsProvider, LUNA, bLUNA, '10000');
 
-  expect(res.contractAddr).toBe('terra1jxazgm67et0ce260kvrpfv50acuushpjsz2y0p');
+  expect(res.contractAddr).toBe('terra13e4jmcjnwrauvl2fnjdwex0exuzd8zrh5xk29v');
   expect(res.query).toEqual({
     simulation: { offer_asset: { amount: '10000', info: { native_token: { denom: 'uluna' } } } },
   });
 });
 
 test('PairsProvider fabricateQuerySimulationBySymbol bLUNA to LUNA ', async () => {
-  const res = fabricateQuerySimulationBySymbol(mainNetworkPairsProvider, bLUNA, LUNA, '10000');
+  const res = fabricateQuerySimulationBySymbol(testNetworkPairsProvider, bLUNA, LUNA, '10000');
 
-  expect(res.contractAddr).toBe('terra1jxazgm67et0ce260kvrpfv50acuushpjsz2y0p');
+  expect(res.contractAddr).toBe('terra13e4jmcjnwrauvl2fnjdwex0exuzd8zrh5xk29v');
   expect(res.query).toEqual({
     simulation: {
       offer_asset: {
         amount: '10000',
-        info: { token: { contract_addr: 'terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp' } },
+        info: { token: { contract_addr: 'terra1u0t35drzyy0mujj8rkdyzhe264uls4ug3wdp3x' } },
       },
     },
   });
@@ -80,23 +76,23 @@ test('PairsProvider fabricateReverseQuerySimulationBySymbol UST to LUNA', async 
 });
 
 test('PairsProvider fabricateReverseQuerySimulationBySymbol LUNA to bLUNA ', async () => {
-  const res = fabricateReverseQuerySimulationBySymbol(mainNetworkPairsProvider, LUNA, bLUNA, '10000');
+  const res = fabricateReverseQuerySimulationBySymbol(testNetworkPairsProvider, LUNA, bLUNA, '10000');
 
-  expect(res.contractAddr).toBe('terra1jxazgm67et0ce260kvrpfv50acuushpjsz2y0p');
+  expect(res.contractAddr).toBe('terra13e4jmcjnwrauvl2fnjdwex0exuzd8zrh5xk29v');
   expect(res.query).toEqual({
     reverse_simulation: {
       ask_asset: {
         amount: '10000',
-        info: { token: { contract_addr: 'terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp' } },
+        info: { token: { contract_addr: 'terra1u0t35drzyy0mujj8rkdyzhe264uls4ug3wdp3x' } },
       },
     },
   });
 });
 
 test('PairsProvider fabricateReverseQuerySimulationBySymbol bLUNA to LUNA', async () => {
-  const res = fabricateReverseQuerySimulationBySymbol(mainNetworkPairsProvider, bLUNA, LUNA, '10000');
+  const res = fabricateReverseQuerySimulationBySymbol(testNetworkPairsProvider, bLUNA, LUNA, '10000');
 
-  expect(res.contractAddr).toBe('terra1jxazgm67et0ce260kvrpfv50acuushpjsz2y0p');
+  expect(res.contractAddr).toBe('terra13e4jmcjnwrauvl2fnjdwex0exuzd8zrh5xk29v');
   expect(res.query).toEqual({
     reverse_simulation: { ask_asset: { amount: '10000', info: { native_token: { denom: 'uluna' } } } },
   });

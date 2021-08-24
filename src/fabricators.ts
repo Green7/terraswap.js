@@ -1,6 +1,6 @@
 import { Coin, Coins, MsgExecuteContract } from '@terra-money/terra.js';
 import { Asset, createAssetForTokenInfo, getContractAddrOrDenom } from './types';
-import { getTokenFromPair, IPairFinder } from './pairFinder';
+import { getTokenFromPair, IPairFinder } from './pairfinder';
 
 export interface ContractAddrAndQuery {
   contractAddr: string;

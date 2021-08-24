@@ -9,6 +9,7 @@ import {
   GBT,
   HKT,
   INT,
+  isBlacklisted,
   JPT,
   KRT,
   LUNA,
@@ -34,9 +35,8 @@ import {
   UTHB,
   UUSD,
 } from './constants';
-import { isBlacklisted } from './constants';
 
-export type NetworkName = 'mainnet' | 'testnet';
+export type NetworkType = 'mainnet' | 'testnet';
 
 // Our Pair info
 export interface PairInfo {
@@ -114,12 +114,12 @@ const nativeTokensInfo: Map<string, TokenInfo> = new Map<string, TokenInfo>([
   [UTHB, createNativeToken(UTHB, THT, UTHB)],
 ]);
 
-export function getNetworkServiceURL(networkName: NetworkName): string {
-  return networkName === 'mainnet' ? 'https://api.terraswap.io' : 'https://api-tequila.terraswap.io';
+export function getNetworkServiceURL(networkType: NetworkType): string {
+  return networkType === 'mainnet' ? 'https://api.terraswap.io' : 'https://api-tequila.terraswap.io';
 }
 
-export async function getTokensInfo(networkName: NetworkName): Promise<Map<string, TokenInfo>> {
-  const url = `${getNetworkServiceURL(networkName)}/tokens`;
+export async function getTokensInfo(networkType: NetworkType): Promise<Map<string, TokenInfo>> {
+  const url = `${getNetworkServiceURL(networkType)}/tokens`;
   const res: TokenInfo[] = (await axios.get(url)).data;
 
   const result = new Map<string, TokenInfo>(nativeTokensInfo);
@@ -129,8 +129,8 @@ export async function getTokensInfo(networkName: NetworkName): Promise<Map<strin
   return result;
 }
 
-export async function getPairs(networkName: NetworkName): Promise<PairResult[]> {
-  const url = `${getNetworkServiceURL(networkName)}/pairs`;
+export async function getPairs(networkType: NetworkType): Promise<PairResult[]> {
+  const url = `${getNetworkServiceURL(networkType)}/pairs`;
   const res: PairsResult = (await axios.get(url)).data;
 
   const result: PairResult[] = [];
@@ -144,9 +144,9 @@ export async function getPairs(networkName: NetworkName): Promise<PairResult[]> 
   return result;
 }
 
-export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]> {
-  const pairs = await getPairs(networkName);
-  const tokens = await getTokensInfo(networkName);
+export async function getPairsInfo(networkType: NetworkType): Promise<PairInfo[]> {
+  const pairs = await getPairs(networkType);
+  const tokens = await getTokensInfo(networkType);
 
   return pairs
     .map((pairResult: PairResult) => {
@@ -164,8 +164,10 @@ export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]
       ) {
         if (
           !(
-            tokenInfo1?.contract_addr === 'terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp' ||
-            tokenInfo1?.contract_addr === 'terra14z56l0fp2lsf86zy3hty2z47ezkhnthtr9yq76'
+            tokenInfo1?.contract_addr === 'terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp' || // bLUNA mainnet
+            tokenInfo1?.contract_addr === 'terra1u0t35drzyy0mujj8rkdyzhe264uls4ug3wdp3x' || // bLUNA testnet
+            tokenInfo1?.contract_addr === 'terra14z56l0fp2lsf86zy3hty2z47ezkhnthtr9yq76' || // ANC mainnet
+            tokenInfo1?.contract_addr === 'terra1747mad58h0w4y589y3sk84r5efqdev9q4r02pc'    // ANC testnet
           )
         ) {
           return;
@@ -186,7 +188,7 @@ export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]
       }
 
       if (
-        networkName === 'mainnet' &&
+        networkType === 'mainnet' &&
         tokenInfo1?.symbol === 'MINE' &&
         !(tokenInfo1?.contract_addr === 'terra1kcthelkax4j9x8d3ny6sdag0qmxxynl3qtcrpy')
       ) {
@@ -194,7 +196,7 @@ export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]
       }
 
       if (
-        networkName === 'mainnet' &&
+        networkType === 'mainnet' &&
         tokenInfo2?.symbol === 'MINE' &&
         !(tokenInfo2?.contract_addr === 'terra1kcthelkax4j9x8d3ny6sdag0qmxxynl3qtcrpy')
       ) {
@@ -202,7 +204,7 @@ export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]
       }
 
       if (
-        networkName === 'mainnet' &&
+        networkType === 'mainnet' &&
         tokenInfo1?.symbol === 'LOTA' &&
         !(tokenInfo1?.contract_addr === 'terra1ez46kxtulsdv07538fh5ra5xj8l68mu8eg24vr')
       ) {
@@ -210,7 +212,7 @@ export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]
       }
 
       if (
-        networkName === 'mainnet' &&
+        networkType === 'mainnet' &&
         tokenInfo2?.symbol === 'LOTA' &&
         !(tokenInfo2?.contract_addr === 'terra1ez46kxtulsdv07538fh5ra5xj8l68mu8eg24vr')
       ) {
@@ -218,7 +220,7 @@ export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]
       }
 
       if (
-        networkName === 'mainnet' &&
+        networkType === 'mainnet' &&
         tokenInfo1?.symbol === 'SPEC' &&
         !(tokenInfo1?.contract_addr === 'terra1s5eczhe0h0jutf46re52x5z4r03c8hupacxmdr')
       ) {
@@ -226,7 +228,7 @@ export async function getPairsInfo(networkName: NetworkName): Promise<PairInfo[]
       }
 
       if (
-        networkName === 'mainnet' &&
+        networkType === 'mainnet' &&
         tokenInfo2?.symbol === 'SPEC' &&
         !(tokenInfo2?.contract_addr === 'terra1s5eczhe0h0jutf46re52x5z4r03c8hupacxmdr')
       ) {

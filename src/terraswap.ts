@@ -9,20 +9,20 @@ import {
   fabricateSwapBySymbol,
 } from './fabricators';
 import { Asset, ReverseSimulationResponse, SimulationResponse } from './types';
-import { NetworkName } from './rest';
-import { PairFinder } from './pairFinder';
+import { NetworkType } from './rest';
+import { PairFinder } from './pairfinder';
 import { CreateTxOptions } from '@terra-money/terra.js/dist/client/lcd/api/TxAPI';
 import { StdSignMsg } from '@terra-money/terra.js/dist/core/StdSignMsg';
 import { StdTx } from '@terra-money/terra.js/dist/core/StdTx';
 
 export class TerraSwap {
-  networkName: NetworkName;
+  networkType: NetworkType;
   pairFinder: PairFinder;
   wallet: Wallet;
 
-  constructor(networkName: NetworkName, wallet: Wallet) {
-    this.networkName = networkName;
-    this.pairFinder = new PairFinder(networkName);
+  constructor(networkType: NetworkType, wallet: Wallet) {
+    this.networkType = networkType;
+    this.pairFinder = new PairFinder(networkType);
     this.wallet = wallet;
   }
 
