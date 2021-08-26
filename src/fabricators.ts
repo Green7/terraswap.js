@@ -7,8 +7,7 @@ export interface ContractAddrAndQuery {
   query: object;
 }
 
-export const createHookMsg = (msg: object): string =>
-  Buffer.from(JSON.stringify(msg)).toString('base64');
+export const createHookMsg = (msg: object): string => Buffer.from(JSON.stringify(msg)).toString('base64');
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function fabricateQuerySimulation(offerAsset: Asset): object {
@@ -90,8 +89,17 @@ export function fabricateSwapBySymbol(
   const tokenInfo = getTokenFromPair(pair, symbolFrom);
   const offerAsset = createAssetForTokenInfo(tokenInfo, amount);
 
-  return isNativeToken(offerAsset.info) ? fabricateSwapFromNative(accAddr, pair.contractAddr, offerAsset, beliefPrice, maxSpread, to) :
-    fabricateSwapFromToken(accAddr, pair.contractAddr, tokenInfo.contract_addr, offerAsset, beliefPrice, maxSpread, to);
+  return isNativeToken(offerAsset.info)
+    ? fabricateSwapFromNative(accAddr, pair.contractAddr, offerAsset, beliefPrice, maxSpread, to)
+    : fabricateSwapFromToken(
+        accAddr,
+        pair.contractAddr,
+        tokenInfo.contract_addr,
+        offerAsset,
+        beliefPrice,
+        maxSpread,
+        to,
+      );
 }
 
 export function fabricateQuerySimulationBySymbol(

@@ -2,7 +2,8 @@ import { PairFinder } from '../pairfinder';
 import {
   fabricateQuerySimulationBySymbol,
   fabricateReverseQuerySimulationBySymbol,
-  fabricateSwapBySymbol, fabricateSwapFromNative,
+  fabricateSwapBySymbol,
+  fabricateSwapFromNative,
 } from '../fabricators';
 import { bLUNA, LUNA, ULUNA, UST } from '../constants';
 import { Coin, Coins, MsgExecuteContract } from '@terra-money/terra.js';
