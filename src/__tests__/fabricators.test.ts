@@ -2,8 +2,7 @@ import { PairFinder } from '../pairfinder';
 import {
   fabricateQuerySimulationBySymbol,
   fabricateReverseQuerySimulationBySymbol,
-  fabricateSwap,
-  fabricateSwapBySymbol,
+  fabricateSwapBySymbol, fabricateSwapFromNative,
 } from '../fabricators';
 import { bLUNA, LUNA, ULUNA, UST } from '../constants';
 import { Coin, Coins, MsgExecuteContract } from '@terra-money/terra.js';
@@ -99,7 +98,7 @@ test('PairsProvider fabricateReverseQuerySimulationBySymbol bLUNA to LUNA', asyn
 });
 
 test('fabricateSwap ULUNA to UST', async () => {
-  const msg = fabricateSwap(
+  const msg = fabricateSwapFromNative(
     'account001',
     'pairAddr',
     createAssetForNative(ULUNA, '10000'),

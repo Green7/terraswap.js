@@ -1,11 +1,14 @@
 import { Coin, Coins, MsgExecuteContract } from '@terra-money/terra.js';
-import { Asset, createAssetForTokenInfo, getContractAddrOrDenom } from './types';
+import { Asset, createAssetForTokenInfo, getContractAddrOrDenom, isNativeToken } from './types';
 import { getTokenFromPair, IPairFinder } from './pairfinder';
 
 export interface ContractAddrAndQuery {
   contractAddr: string;
   query: object;
 }
+
+export const createHookMsg = (msg: object): string =>
+  Buffer.from(JSON.stringify(msg)).toString('base64');
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function fabricateQuerySimulation(offerAsset: Asset): object {
@@ -25,7 +28,7 @@ export function fabricateReverseQuerySimulation(askAsset: Asset): object {
   };
 }
 
-export function fabricateSwap(
+export function fabricateSwapFromNative(
   accAddr: string,
   pairAddr: string,
   offerAsset: Asset,
@@ -49,6 +52,30 @@ export function fabricateSwap(
   );
 }
 
+export function fabricateSwapFromToken(
+  accAddr: string,
+  pairAddr: string,
+  tokenAddr: string,
+  offerAsset: Asset,
+  beliefPrice?: string,
+  maxSpread?: string,
+  to?: string,
+): MsgExecuteContract {
+  return new MsgExecuteContract(accAddr, tokenAddr, {
+    send: {
+      contract: pairAddr,
+      amount: offerAsset.amount,
+      msg: createHookMsg({
+        swap: {
+          belief_price: beliefPrice,
+          max_spread: maxSpread,
+          to,
+        },
+      }),
+    },
+  });
+}
+
 export function fabricateSwapBySymbol(
   accAddr: string,
   pairFinder: IPairFinder,
@@ -61,14 +88,10 @@ export function fabricateSwapBySymbol(
 ): MsgExecuteContract {
   const pair = pairFinder.getPair(symbolFrom, symbolTo);
   const tokenInfo = getTokenFromPair(pair, symbolFrom);
-  return fabricateSwap(
-    accAddr,
-    pair.contractAddr,
-    createAssetForTokenInfo(tokenInfo, amount),
-    beliefPrice,
-    maxSpread,
-    to,
-  );
+  const offerAsset = createAssetForTokenInfo(tokenInfo, amount);
+
+  return isNativeToken(offerAsset.info) ? fabricateSwapFromNative(accAddr, pair.contractAddr, offerAsset, beliefPrice, maxSpread, to) :
+    fabricateSwapFromToken(accAddr, pair.contractAddr, tokenInfo.contract_addr, offerAsset, beliefPrice, maxSpread, to);
 }
 
 export function fabricateQuerySimulationBySymbol(

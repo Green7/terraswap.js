@@ -5,7 +5,6 @@ import {
   fabricateQuerySimulationBySymbol,
   fabricateReverseQuerySimulation,
   fabricateReverseQuerySimulationBySymbol,
-  fabricateSwap,
   fabricateSwapBySymbol,
 } from './fabricators';
 import { Asset, ReverseSimulationResponse, SimulationResponse } from './types';
@@ -28,16 +27,6 @@ export class TerraSwap {
 
   async getPairsInfo() {
     await this.pairFinder.getPairsInfo();
-  }
-
-  fabricateSwap(
-    pairAddr: string,
-    offerAsset: Asset,
-    beliefPrice?: string,
-    maxSpread?: string,
-    to?: string,
-  ): MsgExecuteContract {
-    return fabricateSwap(this.wallet.key.accAddress, pairAddr, offerAsset, beliefPrice, maxSpread, to);
   }
 
   fabricateSwapBySymbol(
