@@ -27,7 +27,8 @@ npm i terraswap.js
 
 
 ```ts
-import { LCDClient, Coin } from '@terra-money/terra.js';
+import { Coin, LCDClient, MnemonicKey, Wallet } from '@terra-money/terra.js';
+import { TerraSwap } from 'terraswap.js';
 
 // Create LCD client and wallet 
 const lcdConfig = {
