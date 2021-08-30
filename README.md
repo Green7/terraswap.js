@@ -40,8 +40,9 @@ const lcdConfig = {
 };
 
 const lcdClient: LCDClient = new LCDClient(lcdConfig);
+// You must set your wallet mnemonic in MNEMONIC environment variable or set them below (mnemonic: 'your wallet seed phrase')
 const wallet = new Wallet(lcdClient, new MnemonicKey({
-    mnemonic: process.env.MNEMONIC,
+    mnemonic: process.env.MNEMONIC, 
   }));
 
 // Create terraSwap object
