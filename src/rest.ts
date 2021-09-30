@@ -115,6 +115,7 @@ const nativeTokensInfo: Map<string, TokenInfo> = new Map<string, TokenInfo>([
 ]);
 
 export function getNetworkServiceURL(networkType: NetworkType): string {
+  // Todo: change testnet to https://api-bombay.terraswap.io but bombay tokens file do not contain contract_addr filed ?
   return networkType === 'mainnet' ? 'https://api.terraswap.io' : 'https://api-tequila.terraswap.io';
 }
 
@@ -235,6 +236,39 @@ export async function getPairsInfo(networkType: NetworkType): Promise<PairInfo[]
         !(tokenInfo2?.contract_addr === 'terra1s5eczhe0h0jutf46re52x5z4r03c8hupacxmdr')
       ) {
         return;
+      }
+
+      if (
+        networkType === "mainnet" &&
+        tokenInfo2?.symbol === "SPEC" &&
+        !(
+          tokenInfo2?.contract_addr ===
+          "terra1s5eczhe0h0jutf46re52x5z4r03c8hupacxmdr"
+        )
+      ) {
+        return
+      }
+
+      if (
+        networkType === "mainnet" &&
+        tokenInfo1?.symbol === "AGB" &&
+        !(
+          tokenInfo1?.contract_addr ===
+          "terra12qxyx2l90c37kylw4jqe8t40ppnrnu8wqmx940"
+        )
+      ) {
+        return
+      }
+
+      if (
+        networkType === "mainnet" &&
+        tokenInfo2?.symbol === "AGB" &&
+        !(
+          tokenInfo2?.contract_addr ===
+          "terra12qxyx2l90c37kylw4jqe8t40ppnrnu8wqmx940"
+        )
+      ) {
+        return
       }
 
       const pair: PairInfo = {
