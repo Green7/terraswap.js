@@ -239,36 +239,27 @@ export async function getPairsInfo(networkType: NetworkType): Promise<PairInfo[]
       }
 
       if (
-        networkType === "mainnet" &&
-        tokenInfo2?.symbol === "SPEC" &&
-        !(
-          tokenInfo2?.contract_addr ===
-          "terra1s5eczhe0h0jutf46re52x5z4r03c8hupacxmdr"
-        )
+        networkType === 'mainnet' &&
+        tokenInfo2?.symbol === 'SPEC' &&
+        !(tokenInfo2?.contract_addr === 'terra1s5eczhe0h0jutf46re52x5z4r03c8hupacxmdr')
       ) {
-        return
+        return;
       }
 
       if (
-        networkType === "mainnet" &&
-        tokenInfo1?.symbol === "AGB" &&
-        !(
-          tokenInfo1?.contract_addr ===
-          "terra12qxyx2l90c37kylw4jqe8t40ppnrnu8wqmx940"
-        )
+        networkType === 'mainnet' &&
+        tokenInfo1?.symbol === 'AGB' &&
+        !(tokenInfo1?.contract_addr === 'terra12qxyx2l90c37kylw4jqe8t40ppnrnu8wqmx940')
       ) {
-        return
+        return;
       }
 
       if (
-        networkType === "mainnet" &&
-        tokenInfo2?.symbol === "AGB" &&
-        !(
-          tokenInfo2?.contract_addr ===
-          "terra12qxyx2l90c37kylw4jqe8t40ppnrnu8wqmx940"
-        )
+        networkType === 'mainnet' &&
+        tokenInfo2?.symbol === 'AGB' &&
+        !(tokenInfo2?.contract_addr === 'terra12qxyx2l90c37kylw4jqe8t40ppnrnu8wqmx940')
       ) {
-        return
+        return;
       }
 
       const pair: PairInfo = {
