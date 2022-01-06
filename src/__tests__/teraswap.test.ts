@@ -37,7 +37,7 @@ test('TerraSwap querySimulation LUNA TO UST', async () => {
 });
 
  test('TerraSwap queryReverseSimulation LUNA TO UST', async () => {
-     const res = await terraSwap.queryReverseSimulationBySymbol(LUNA, UST, '10000000');
+     const res = await terraSwap.queryReverseSimulationBySymbol(LUNA, UST, '100000000');
      expect(res).toBeDefined();
      expect(res).toHaveProperty('offer_amount');
      expect(res).toHaveProperty('spread_amount');
@@ -81,7 +81,7 @@ test('TerraSwap swap bLUNA to LUNA', async () => {
 });
 
 test('TerraSwap swap LUNA to bLUNA', async () => {
-  const tx = await terraSwap.createAndSignSwapBySymbolMsg(LUNA, bLUNA, '1000', {
+  const tx = await terraSwap.createAndSignSwapBySymbolMsg(LUNA, bLUNA, '100000', {
     msgs: [],
     memo: 'test LUNA to bLUNA',
     gasAdjustment: lcdConfig.gasAdjustment,

@@ -35,7 +35,7 @@ export const JPT = 'JPT';
 export const SGT = 'SGT';
 export const THT = 'THT';
 export const LP = 'LP';
-export const bLUNA = 'bLUNA';
+export const bLUNA = 'bLuna';
 
 export const NATIVE_TOKENS = [
   ULUNA,

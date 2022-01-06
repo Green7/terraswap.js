@@ -1,4 +1,4 @@
-import { MsgExecuteContract, Wallet } from '@terra-money/terra.js';
+import { MsgExecuteContract, Tx, Wallet } from '@terra-money/terra.js';
 import {
   ContractAddrAndQuery,
   fabricateQuerySimulation,
@@ -11,8 +11,6 @@ import { Asset, ReverseSimulationResponse, SimulationResponse } from './types';
 import { NetworkType } from './rest';
 import { PairFinder } from './pairfinder';
 import { CreateTxOptions } from '@terra-money/terra.js/dist/client/lcd/api/TxAPI';
-import { StdSignMsg } from '@terra-money/terra.js/dist/core/StdSignMsg';
-import { StdTx } from '@terra-money/terra.js/dist/core/StdTx';
 
 export class TerraSwap {
   networkType: NetworkType;
@@ -92,7 +90,7 @@ export class TerraSwap {
     symbolTo: string,
     amount: string,
     options: CreateTxOptions,
-  ): Promise<StdSignMsg> {
+  ): Promise<Tx> {
     const msg = this.fabricateSwapBySymbol(symbolFrom, symbolTo, amount);
     options.msgs.push(msg);
     return await this.wallet.createTx(options);
@@ -103,7 +101,7 @@ export class TerraSwap {
     symbolTo: string,
     amount: string,
     options: CreateTxOptions,
-  ): Promise<StdTx> {
+  ): Promise<Tx> {
     const msg = this.fabricateSwapBySymbol(symbolFrom, symbolTo, amount);
     options.msgs.push(msg);
     return await this.wallet.createAndSignTx(options);
