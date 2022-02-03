@@ -3,4 +3,5 @@ dist
 .env
 .idea
 .vscode
+.npmrc 
 yarn.lock

@@ -1,7 +1,6 @@
 import { isTxError, LCDClient, MnemonicKey, Wallet } from '@terra-money/terra.js';
 import { TerraSwap } from '../terraswap';
-import { LUNA, UST } from '../constants';
-import { bLUNA } from '../../dist';
+import { bLUNA, LUNA, UST } from '../constants';
 
 const lcdConfig = {
   URL: 'https://bombay-lcd.terra.dev',
