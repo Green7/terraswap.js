@@ -1,6 +1,6 @@
 {
   "name": "terraswap.js",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Terraswap.js is simple library for working with TeraSwap automated market-maker (AMM) protocol on the Terra blockchain.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
